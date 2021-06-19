@@ -1,3 +1,4 @@
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 
 # Create your models here.
@@ -22,6 +23,14 @@ class Category(models.Model):
     def __str__(self):
         return self.title
 
+    def image_tag(self):
+        if self.image.url is not None:
+            return mark_safe('<img src="{}" height="50"/>'.format(self.image.url))
+        else:
+            return ""
+
+    image_tag.short_description = 'Image'
+
 class Hotel(models.Model):
     STATUS = (
         ('True', 'True'),
@@ -35,7 +44,7 @@ class Hotel(models.Model):
     price = models.FloatField()
     amount = models.IntegerField()
     minamount = models.IntegerField()
-    detail = models.TextField()
+    detail = RichTextUploadingField()
     slug = models.SlugField(null=False, unique=True)
     status = models.CharField(max_length=10,choices=STATUS)
     create_at = models.DateTimeField(auto_now_add=True)

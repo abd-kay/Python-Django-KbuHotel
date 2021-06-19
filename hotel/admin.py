@@ -5,7 +5,7 @@ from hotel.models import Category, Hotel, Images
 
 
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ['title', 'parent', 'status', 'update_at']
+    list_display = ['title', 'parent', 'status', 'update_at', 'image_tag']
     list_filter = ['status']
 
 class HotelImageInline(admin.TabularInline):
@@ -13,7 +13,7 @@ class HotelImageInline(admin.TabularInline):
     extra = 3
 
 class HotelAdmin(admin.ModelAdmin):
-    list_display = ['title', 'category', 'status', 'update_at']
+    list_display = ['title', 'category', 'status', 'update_at', 'image_tag']
     list_filter = ['category']
     readonly_fields = ('image_tag',)
     inlines = [HotelImageInline]
