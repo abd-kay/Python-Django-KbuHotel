@@ -2,7 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib import messages
 from home.models import Setting, ContactForm, ContactMessage
-from hotel.models import Category
+from hotel.models import Category, Hotel
 
 
 def index(request):
@@ -17,7 +17,9 @@ def index(request):
 
 def aboutus(request):
     setting = Setting.objects.get(pk=1)
-    context = {'setting': setting,}
+    category = Category.objects.all()
+    context = {'setting': setting,
+               'category': category}
     return render(request, 'aboutus.html', context)
 
 def contact(request):
@@ -35,7 +37,15 @@ def contact(request):
             return HttpResponseRedirect('/contact')
 
     setting = Setting.objects.get(pk=1)
+    category = Category.objects.all()
     form = ContactForm
     context = {'setting': setting,
-               'form': form,}
+               'form': form,
+               'category': category}
     return render(request, 'contact.html', context)
+
+
+def category_hotels(request, id, slug):
+    setting = Setting.objects.get(pk=1)
+    hotels = Hotel.objects.filter(category_id=id)
+    return HttpResponse(hotels)
