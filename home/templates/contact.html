@@ -26,8 +26,8 @@
                 <div class="contact">
                     <div class="row">
 
-                        <div class="col-md-6 col-lg-5">
-{{ setting.contact|safe }}
+                        <div class="col-md-8 col-lg-5">
+                           {{ setting.contact|safe }}
                             <div class="text">
                                 <h2>Contact</h2>
                                 <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries.</p>
@@ -83,26 +83,26 @@
 
                         </div>
 
-                        <div class="col-md-6 col-lg-6 col-lg-offset-1">
+                        <div class="col-md-4 col-lg-6 col-lg-offset-1">
+                            <div class="text">
+                            <h2>Contact Form</h2>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="section-title">
+                                    {% if messages %}
+                                        {% for message in messages %}
+                                            <div class="alert alert-{{ message.tags }}" role="alert">
+                                                {{ message }}
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
                             <div class="contact-form">
-                                <form id="send-contact-form" action="send_mail_contact.php" method="post">
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <input type="text" class="field-text"  name="name" placeholder="Name">
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <input type="text" class="field-text" name="email" placeholder="Email">
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <input type="text" class="field-text" name="subject" placeholder="Subject">
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <textarea cols="30" rows="10" name="message"  class="field-textarea" placeholder="Write what do you want"></textarea>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <button type="submit" class="awe-btn awe-btn-13">SEND</button>
-                                        </div>
-                                    </div>
+                                <form id="send-contact-form" method="post">
+                                    {% csrf_token %}
+                                    {{ form.as_ul }}
+                                    <input type="submit" id="submit" value="Send Massage">
+
                                     <div id="contact-content"></div>
                                 </form>
                             </div>
