@@ -8,9 +8,11 @@ from hotel.models import Category, Hotel
 def index(request):
     setting = Setting.objects.get(pk=1)
     category = Category.objects.all()
+    hotels_slider = Hotel.objects.all().order_by('-id')[:4]
     page = "home"
     context = {'setting': setting,
                'page': page,
+               'hotels_slider': hotels_slider,
                'category': category}
     return render(request, 'index.html', context)
 
