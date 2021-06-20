@@ -25,8 +25,9 @@
                                 <input id="query" type="text" name="query" placeholder="Enter your Keywords" class="input-text">
                                 <select name="catid" class="input search-categories">
                                     <option value="0">all categories</option>
-                                    <option value="1">categoray 01</option>
-                                    <option value="2">categoray 02</option>
+                                    {% for rs in categoray %}
+                                    <option value="{{ rs.id }}">{{ rs.title }}</option>
+                                   {% endfor %}
                                 </select>
                                 <button class="search-btn"><i class="fa fa-search"></i></button>
                             </form>

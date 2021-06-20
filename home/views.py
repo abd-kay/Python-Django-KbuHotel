@@ -73,7 +73,8 @@ def search(request):
                 hotels = Hotel.objects.filter(title__icontains=query, category_id=catid)
 
             category = Category.objects.all()
-            context = {'hotels': hotels, 'query': query,
+            context = {'hotels': hotels,
+                       'query': query,
                        'category': category}
             return render(request, 'search.html', context)
 
