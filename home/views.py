@@ -8,11 +8,15 @@ from hotel.models import Category, Hotel
 def index(request):
     setting = Setting.objects.get(pk=1)
     category = Category.objects.all()
-    hotels_slider = Hotel.objects.all().order_by('-id')[:4]
+    hotels_slider = Hotel.objects.all().order_by('id')[:4] # last 4 hotels
+    hotels_latest = Hotel.objects.all().order_by('-id')[:3]  # last 3 hotels
+    hotels_picked = Hotel.objects.all().order_by('?')[:1]  # random selected 1 hotel
     page = "home"
     context = {'setting': setting,
                'page': page,
                'hotels_slider': hotels_slider,
+               'hotels_latest': hotels_latest,
+               'hotels_picked': hotels_picked,
                'category': category}
     return render(request, 'index.html', context)
 
