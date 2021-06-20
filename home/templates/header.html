@@ -18,6 +18,20 @@
                     <span><i class="lotus-icon-location"></i> 225 Beach Street, Australian</span>
                     <span><i class="lotus-icon-phone"></i> 1-548-854-8898</span>
                 </div>
+                <div class="header_left float-left">
+                    <div class="mailchimp-form">
+                            <form action="/search/" method="POST">
+                                {% csrf_token %}
+                                <input id="query" type="text" name="query" placeholder="Enter your Keywords" class="input-text">
+                                <select name="catid" class="input search-categories">
+                                    <option value="0">all categories</option>
+                                    <option value="1">categoray 01</option>
+                                    <option value="2">categoray 02</option>
+                                </select>
+                                <button class="search-btn"><i class="fa fa-search"></i></button>
+                            </form>
+                        </div>
+                </div>
                 <div class="header_right float-right">
 
                         <span class="login-register">

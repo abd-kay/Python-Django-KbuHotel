@@ -1,6 +1,8 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib import messages
+
+from home.forms import SearchForm
 from home.models import Setting, ContactForm, ContactMessage
 from hotel.models import Category, Hotel
 
@@ -52,6 +54,27 @@ def contact(request):
 
 
 def category_hotels(request, id, slug):
-    setting = Setting.objects.get(pk=1)
     hotels = Hotel.objects.filter(category_id=id)
-    return HttpResponse(hotels)
+    category = Category.objects.all()
+    context = {'hotels': hotels,
+               'category': category}
+    return render(request, 'category_hotels.html', context)
+
+
+def search(request):
+    if request.method == 'POST':  # check post
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            query = form.cleaned_data['query']  # get form input data
+            catid = form.cleaned_data['catid']
+            if catid == 0:
+                hotels = Hotel.objects.filter(title__icontains=query)  # SELECT * FROM hotel WHERE title LIKE '%query%'
+            else:
+                hotels = Hotel.objects.filter(title__icontains=query, category_id=catid)
+
+            category = Category.objects.all()
+            context = {'hotels': hotels, 'query': query,
+                       'category': category}
+            return render(request, 'search.html', context)
+
+    return HttpResponseRedirect('/')
