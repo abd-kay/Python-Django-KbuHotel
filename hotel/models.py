@@ -70,6 +70,9 @@ class Hotel(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse('category_detail', kwargs={'slug': self.slug})
+
     def image_tag(self):
         if self.image.url is not None:
             return mark_safe('<img src="{}" height="50"/>'.format(self.image.url))
