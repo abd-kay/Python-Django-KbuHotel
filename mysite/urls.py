@@ -27,6 +27,7 @@ urlpatterns = [
 
     path('admin/', admin.site.urls),
     path('search/', views.search, name='search'),
+    path('search_auto/', views.search_auto, name='search_auto'),
     path('aboutus/', views.aboutus, name='aboutus'),
     path('contact/', views.contact, name='contact'),
     path('category/<int:id>/<slug:slug>', views.category_hotels, name='category_hotels'),

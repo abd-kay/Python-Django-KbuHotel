@@ -18,20 +18,38 @@
                     <span><i class="lotus-icon-location"></i> 225 Beach Street, Australian</span>
                     <span><i class="lotus-icon-phone"></i> 1-548-854-8898</span>
                 </div>
+                <script>
+
+                    $(function () {
+                        $("#query").autocomplete({
+                            source: "/search_auto/",
+                            select: function (event, ui) { //item selected
+                                AutoCompleteSelectHandler(event, ui)
+                            },
+                            minLength: 2,
+                        });
+                    });
+
+                    function AutoCompleteSelectHandler(event, ui) {
+                        var selectedObj = ui.item;
+                    }
+
+                </script>
                 <div class="header_left float-left">
                     <div class="mailchimp-form">
-                            <form action="/search/" method="POST">
-                                {% csrf_token %}
-                                <input id="query" type="text" name="query" placeholder="Enter your Keywords" class="input-text">
-                                <select name="catid" class="input search-categories">
-                                    <option value="0">all categories</option>
-                                    {% for rs in categoray %}
+                        <form action="/search/" method="POST">
+                            {% csrf_token %}
+                            <input id="query" type="text" name="query" placeholder="Enter your Keywords"
+                                   class="input-text">
+                            <select name="catid" class="input search-categories">
+                                <option value="0">all categories</option>
+                                {% for rs in categoray %}
                                     <option value="{{ rs.id }}">{{ rs.title }}</option>
-                                   {% endfor %}
-                                </select>
-                                <button class="search-btn"><i class="fa fa-search"></i></button>
-                            </form>
-                        </div>
+                                {% endfor %}
+                            </select>
+                            <button class="search-btn"><i class="fa fa-search"></i></button>
+                        </form>
+                    </div>
                 </div>
                 <div class="header_right float-right">
 
@@ -115,15 +133,16 @@
                             {% load mptt_tags %}
                             <ul class="sub-menu">
                                 {% recursetree category %}
-                                <li>
-                                    <a href="/category/{{ node.id }}/{{ node.slug }}">{{ node.title }}<span class="fa fa-caret-right"></span></a>
-                                    {% if not node.is_leaf_node %}
-                                    <ul class="sub-menu">
-                                        <li><a href="#">{{ children }}</a></li>
-                                    </ul>
-                                    {% endif %}
-                                </li>
-                            {% endrecursetree %}
+                                    <li>
+                                        <a href="/category/{{ node.id }}/{{ node.slug }}">{{ node.title }}<span
+                                                class="fa fa-caret-right"></span></a>
+                                        {% if not node.is_leaf_node %}
+                                            <ul class="sub-menu">
+                                                <li><a href="#">{{ children }}</a></li>
+                                            </ul>
+                                        {% endif %}
+                                    </li>
+                                {% endrecursetree %}
                             </ul>
                         </li>
 

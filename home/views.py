@@ -1,3 +1,5 @@
+import json
+
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib import messages
@@ -79,3 +81,19 @@ def search(request):
             return render(request, 'search.html', context)
 
     return HttpResponseRedirect('/')
+
+
+def search_auto(request):
+    if request.is_ajax():
+        q = request.GET.get('term', '')
+        hotels = Hotel.objects.filter(title__icontains=q)
+        results = []
+        for rs in hotels:
+            hotel_json = {}
+            hotel_json = rs.title
+            results.append(hotel_json)
+        data = json.dumps(results)
+    else:
+        data = 'fail'
+    mimetype = 'application/json'
+    return HttpResponse(data, mimetype)
