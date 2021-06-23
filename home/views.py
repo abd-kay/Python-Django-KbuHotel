@@ -6,7 +6,7 @@ from django.contrib import messages
 
 from home.forms import SearchForm
 from home.models import Setting, ContactForm, ContactMessage
-from hotel.models import Category, Hotel
+from hotel.models import Category, Hotel, Images
 
 
 def index(request):
@@ -97,3 +97,14 @@ def search_auto(request):
         data = 'fail'
     mimetype = 'application/json'
     return HttpResponse(data, mimetype)
+
+
+def hotel_detail(request,id,slug):
+    category = Category.objects.all()
+    hotel = Hotel.objects.get(pk=id)
+    images = Images.objects.filter(hotel_id=id)
+    context = {'hotel': hotel,
+               'category': category,
+               'images': images,}
+
+    return render(request, 'hotel_detail.html', context)

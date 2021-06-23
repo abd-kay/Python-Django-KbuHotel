@@ -1,0 +1,157 @@
+{% extends 'homebase.html' %}
+
+{% block title %} {{ hotel.title }} {% endblock %}
+{% block description %} {{ hotel.description }} {% endblock %}
+{% block keywords %} {{ hotel.keywords }} {% endblock %}
+{% load static %}
+{% block body %}
+    <!-- SUB BANNER -->
+    <section class="section-sub-banner bg-9">
+        <div class="sub-banner">
+            <div class="container">
+                <div class="text text-center">
+                    <h2>{{ hotel.title }}</h2>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+    <!-- END / SUB BANNER -->
+
+    <!-- BLOG -->
+    <section class="section-blog bg-white">
+        <div class="container">
+            <div class="blog">
+                <div class="row">
+
+                    <div class="col-md-8 col-md-offset-2">
+                        <div class="blog-content">
+                            <h1 class="element-invisible">Hotel detail</h1>
+                            <!-- POST SINGLE -->
+                            <article class="post post-single">
+
+                                <div class="entry-media">
+                                    <div class="row">
+
+                                        <div class=" col-md-offset-1">
+
+                                            <div class="room-detail">
+                                                <div class="row">
+                                                    <div class="col-lg-9">
+
+                                                        <!-- LAGER IMGAE -->
+                                                        <div class="room-detail_img">
+                                                            <div class="room_img-item">
+                                                                <img src="{{ hotel.image.url }}"
+                                                                     alt="">
+                                                            </div>
+                                                            {% for rs in images %}
+                                                            <div class="room_img-item">
+                                                                <img src="{{ rs.image.url }}"
+                                                                     alt="">
+                                                            </div>
+                                                            {% endfor %}
+                                                        </div>
+                                                        <!-- END / LAGER IMGAE -->
+
+                                                        <!-- THUMBNAIL IMAGE -->
+                                                        <div class="room-detail_thumbs">
+                                                            <a href="#"><img
+                                                                    src="{{ hotel.image.url }}"
+                                                                    alt=""></a>
+                                                            {% for rs in images %}
+                                                            <a href="#"><img
+                                                                    src="{{ rs.image.url }}"
+                                                                    alt=""></a>
+                                                            {% endfor %}
+                                                        </div>
+                                                        <!-- END / THUMBNAIL IMAGE -->
+
+                                                    </div>
+                                                    <div class="">
+                                                <div class="entry-header">
+
+                                                    <h2 class="entry-title">{{ hotel.title }}</h2>
+
+                                                </div>
+
+                                                <div class="entry-content">
+
+                                                    <p><b>{{ hotel.detail | safe }}</b></p>
+                                                    <p><b>${{ hotel.price }}</b></p>
+                                                    <br/>
+                                                </div>
+                                            </div>
+                                                </div>
+                                            </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </article>
+                            <!-- END / POST SINGLE -->
+
+                            <!-- COMMENT -->
+                            <div id="comments">
+                                <h4 class="comment-title">COMMENT</h4>
+
+                                <ul class="commentlist">
+                                    <li>
+                                        <div class="comment-body">
+
+                                            <a class="comment-avatar"><img src="{% static '' %}images/avatar/img-1.jpg"
+                                                                           alt=""></a>
+
+                                            <h4 class="comment-subject">Lorem Ipsum is simply dummy text of the
+                                                printing</h4>
+                                            <p>It is a long established fact that a reader will be distracted by the
+                                                readable content of a page when looking at its layout. The point of
+                                                using Lorem Ipsum is that it has a more-or-less normal distribution of
+                                                letters, as opposed to using 'Content here.</p>
+
+                                            <span class="comment-meta">
+                                                    <a href="#">Jessica Anba</a> - 20PM 15 Oct 2015
+                                                </span>
+
+                                        </div>
+                                    </li>
+
+                                </ul>
+                            </div>
+                            <!-- END / COMMENT -->
+
+                            <!-- COMMENT RESPOND -->
+                            <div class="comment-respond">
+                                <h3 class="comment-reply-title">LEAVE A COMMENT</h3>
+                                <form action="#" method="post" class="comment-form">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <input type="text" class="field-text" placeholder="Name">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="field-text" placeholder="Email">
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <input type="text" class="field-text" placeholder="Subject">
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <textarea placeholder="Your comment" class="field-textarea"></textarea>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <button class="awe-btn awe-btn-14">SUBMIT COMMENT</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- END COMMENT RESPOND -->
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END / BLOG -->
+
+{% endblock %}
