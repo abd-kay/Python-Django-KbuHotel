@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
 # Create your views here.
@@ -10,8 +11,14 @@ from user.forms import SignUpForm
 from user.models import UserProfile
 
 
+@login_required(login_url='/login')
 def index(request):
-    return HttpResponse("user app")
+    category = Category.objects.all()
+    current_user = request.user  # Access User Session information
+    profile = UserProfile.objects.get(user_id=current_user.id)
+    context = {  'category': category,
+        'profile': profile}
+    return render(request, 'user_profile.html', context)
 
 
 def login_form(request):
@@ -51,6 +58,13 @@ def signup_form(request):
             password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=password)
             login(request, user)
+            # Create data in profile table for user
+            current_user = request.user
+            data = UserProfile()
+            data.user_id = current_user.id
+            data.image = "images/users/user.png"
+            data.save()
+            messages.success(request, 'Your account has been created!')
             return HttpResponseRedirect('/')
         else:
             messages.warning(request, form.errors)
