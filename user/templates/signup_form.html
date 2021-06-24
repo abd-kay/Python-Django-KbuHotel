@@ -1,0 +1,36 @@
+{% extends 'homebase.html' %}
+
+{% block title %} User Sign Up {{ setting.title }} {% endblock %}
+{% block description %} {{ setting.description }} {% endblock %}
+{% block keywords %} {{ setting.keywords }} {% endblock %}
+{% load static %}
+{% block body %}
+
+    <!-- ACCOUNT -->
+    <section class="section-account parallax bg-11">
+        <div class="awe-overlay"></div>
+        <div class="container">
+            <div class="login-register">
+                <div class="text text-center">
+                    <h2>User Sign Up</h2>
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}" role="alert">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    <form action="" class="account_form" method="POST">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <div class="field-form field-submit">
+                                <button value="Login" class="awe-btn awe-btn-13">Sign Up</button>
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END / ACCOUNT -->
+
+{% endblock %}
