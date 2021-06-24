@@ -6,7 +6,7 @@ from django.contrib import messages
 
 from home.forms import SearchForm
 from home.models import Setting, ContactForm, ContactMessage
-from hotel.models import Category, Hotel, Images
+from hotel.models import Category, Hotel, Images, Comment
 
 
 def index(request):
@@ -103,8 +103,10 @@ def hotel_detail(request,id,slug):
     category = Category.objects.all()
     hotel = Hotel.objects.get(pk=id)
     images = Images.objects.filter(hotel_id=id)
+    comments = Comment.objects.filter(hotel_id=id, status='True')
     context = {'hotel': hotel,
                'category': category,
-               'images': images,}
+               'images': images,
+               'comments': comments}
 
     return render(request, 'hotel_detail.html', context)

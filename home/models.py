@@ -4,6 +4,8 @@ from django.db import models
 # Create your models here.
 from django.forms import TextInput, Textarea, ModelForm
 
+from hotel.models import Hotel
+
 
 class Setting(models.Model):
     STATUS = (
@@ -67,3 +69,5 @@ class ContactForm(ModelForm):
             'email': TextInput(attrs={'class': 'input', 'placeholder': 'Email Address'}),
             'message': Textarea(attrs={'class': 'input', 'placeholder': 'Your Message', 'rows': '5'}),
         }
+
+

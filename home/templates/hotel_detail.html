@@ -43,49 +43,43 @@
                                                         <!-- LAGER IMGAE -->
                                                         <div class="room-detail_img">
                                                             <div class="room_img-item">
-                                                                <img src="{{ hotel.image.url }}"
-                                                                     alt="">
+                                                                <img src="{{ hotel.image.url }}" alt="">
                                                             </div>
                                                             {% for rs in images %}
-                                                            <div class="room_img-item">
-                                                                <img src="{{ rs.image.url }}"
-                                                                     alt="">
-                                                            </div>
+                                                                <div class="room_img-item">
+                                                                    <img src="{{ rs.image.url }}" alt="">
+                                                                </div>
                                                             {% endfor %}
                                                         </div>
                                                         <!-- END / LAGER IMGAE -->
 
                                                         <!-- THUMBNAIL IMAGE -->
                                                         <div class="room-detail_thumbs">
-                                                            <a href="#"><img
-                                                                    src="{{ hotel.image.url }}"
-                                                                    alt=""></a>
+                                                            <a href="#"><img src="{{ hotel.image.url }}" alt=""></a>
                                                             {% for rs in images %}
-                                                            <a href="#"><img
-                                                                    src="{{ rs.image.url }}"
-                                                                    alt=""></a>
+                                                                <a href="#"><img src="{{ rs.image.url }}" alt=""></a>
                                                             {% endfor %}
                                                         </div>
                                                         <!-- END / THUMBNAIL IMAGE -->
 
                                                     </div>
                                                     <div class="">
-                                                <div class="entry-header">
+                                                        <div class="entry-header">
 
-                                                    <h2 class="entry-title">{{ hotel.title }}</h2>
+                                                            <h2 class="entry-title">{{ hotel.title }}</h2>
 
-                                                </div>
+                                                        </div>
 
-                                                <div class="entry-content">
+                                                        <div class="entry-content">
 
-                                                    <p><b>{{ hotel.detail | safe }}</b></p>
-                                                    <p><b>${{ hotel.price }}</b></p>
-                                                    <br/>
+                                                            <p><b>{{ hotel.detail | safe }}</b></p>
+                                                            <p><b>${{ hotel.price }}</b></p>
+                                                            <br/>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                                </div>
-                                            </div>
-                                    </div>
+                                        </div>
                                     </div>
                                 </div>
                             </article>
@@ -93,29 +87,28 @@
 
                             <!-- COMMENT -->
                             <div id="comments">
-                                <h4 class="comment-title">COMMENT</h4>
+                                <h4 class="comment-title">COMMENTS</h4>
 
                                 <ul class="commentlist">
-                                    <li>
-                                        <div class="comment-body">
+                                    {% for rs in comments %}
+                                        <li>
+                                            <div class="comment-body">
 
-                                            <a class="comment-avatar"><img src="{% static '' %}images/avatar/img-1.jpg"
-                                                                           alt=""></a>
+                                                <a class="comment-avatar"><img
+                                                        src="{% static '' %}images/avatar/img-1.jpg" alt=""></a>
+                                                <h4 class="comment-subject">{{ rs.user.subject }}</h4>
+                                                <p>{{ rs.comment }}</p>
 
-                                            <h4 class="comment-subject">Lorem Ipsum is simply dummy text of the
-                                                printing</h4>
-                                            <p>It is a long established fact that a reader will be distracted by the
-                                                readable content of a page when looking at its layout. The point of
-                                                using Lorem Ipsum is that it has a more-or-less normal distribution of
-                                                letters, as opposed to using 'Content here.</p>
-
-                                            <span class="comment-meta">
-                                                    <a href="#">Jessica Anba</a> - 20PM 15 Oct 2015
+                                                <span class="comment-meta">
+                                                {{ rs.user.first_name }}
+                                                    <br>
+                                                    <b>{{ rs.subject }}</b>
+                                                    <br>
+                                                    {{ rs.create_at }}
                                                 </span>
-
-                                        </div>
-                                    </li>
-
+                                            </div>
+                                        </li>
+                                    {% endfor %}
                                 </ul>
                             </div>
                             <!-- END / COMMENT -->
@@ -123,22 +116,30 @@
                             <!-- COMMENT RESPOND -->
                             <div class="comment-respond">
                                 <h3 class="comment-reply-title">LEAVE A COMMENT</h3>
-                                <form action="#" method="post" class="comment-form">
+                                {% if messages %}
+                                    {% for message in messages %}
+                                        <div class="alert alert-{{ message.tags }}" role="alert">
+                                            {{ message }}
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                                <form action="/hotel/addcomment/{{ hotel.id }}" method="post" class="comment-form">
+                                    {% csrf_token %}
                                     <div class="row">
-                                        <div class="col-sm-6">
-                                            <input type="text" class="field-text" placeholder="Name">
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <input type="text" class="field-text" placeholder="Email">
+                                        <div class="col-sm-12">
+                                            <input name="subject" class="field-text" type="text" placeholder="Your subject">
                                         </div>
                                         <div class="col-sm-12">
-                                            <input type="text" class="field-text" placeholder="Subject">
+                                            <textarea name="comment" class="field-textarea"
+                                                      placeholder="Your comment"></textarea>
                                         </div>
                                         <div class="col-sm-12">
-                                            <textarea placeholder="Your comment" class="field-textarea"></textarea>
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <button class="awe-btn awe-btn-14">SUBMIT COMMENT</button>
+                                            {% if user.id is not None %}
+                                                <button class="awe-btn awe-btn-14">SUBMIT COMMENT</button>
+                                            {% else %}
+                                                You must be logged in to post a review
+                                            {% endif %}
+
                                         </div>
                                     </div>
                                 </form>
