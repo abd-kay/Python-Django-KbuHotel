@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.contrib import messages
 
 from home.forms import SearchForm
-from home.models import Setting, ContactForm, ContactMessage
+from home.models import Setting, ContactForm, ContactMessage, FAQ
 from hotel.models import Category, Hotel, Images, Comment
 
 
@@ -110,3 +110,11 @@ def hotel_detail(request,id,slug):
                'comments': comments}
 
     return render(request, 'hotel_detail.html', context)
+
+def faq(request):
+    category = Category.objects.all()
+    faq = FAQ.objects.filter(status="True").order_by("ordernumber")
+    context = {'faq': faq,
+               'category': category,
+                     }
+    return render(request,'faq.html', context)

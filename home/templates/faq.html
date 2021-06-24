@@ -1,0 +1,44 @@
+{% extends 'homebase.html' %}
+
+{% block title %} Frequently Asked Questions{% endblock %}
+{% block description %} {{ setting.description }} {% endblock %}
+{% block keywords %} {{ setting.keywords }} {% endblock %}
+
+
+{% block head %}
+    <script>
+        $(function () {
+            $("#accordion").accordion();
+        });
+    </script>
+
+{% endblock %}
+{% block body %}
+    <section class="section-account parallax bg-11">
+        <div class="awe-overlay"></div>
+        <div class="container">
+            <div class="login-register">
+                <div class="text text-center">
+                    <h2>Frequently Asked Questions</h2>
+                    <div class="row">
+
+                        <div id="accordion">
+                            {% for rs in faq %}
+                                <h3>{{ rs.question }}</h3>
+                                <div>
+                                    <p>
+                                        {{ rs.answer | safe }}
+                                    </p>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+{% endblock %}
