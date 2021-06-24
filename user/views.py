@@ -1,6 +1,7 @@
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import PasswordChangeForm
 from django.shortcuts import render
 
 # Create your views here.
@@ -113,7 +114,7 @@ def user_password(request):
             messages.error(request, 'Please correct the error below.<br>'+ str(form.errors))
             return HttpResponseRedirect('/user/password')
     else:
-        #category = Category.objects.all()
+        category = Category.objects.all()
         form = PasswordChangeForm(request.user)
-        return render(request, 'user_password.html', {'form': form,#'category': category
+        return render(request, 'user_password.html', {'form': form,'category': category
                        })
