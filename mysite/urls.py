@@ -19,6 +19,8 @@ from django.conf import settings
 from django.urls import path, include
 from home import views
 
+from user import views as UserViews
+
 urlpatterns = [
     path('', include('home.urls')),
     path('home/', include('home.urls')),
@@ -26,6 +28,9 @@ urlpatterns = [
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('user/', include('user.urls')),
 
+    path('login/', UserViews.login_form, name='login'),
+    path('logout/', UserViews.logout_func, name='logout'),
+    path('signup/', UserViews.signup_form, name='signup'),
     path('admin/', admin.site.urls),
     path('search/', views.search, name='search'),
     path('search_auto/', views.search_auto, name='search_auto'),

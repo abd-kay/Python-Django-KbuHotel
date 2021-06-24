@@ -14,9 +14,15 @@
         <div class="header_top">
             <div class="container">
                 <div class="header_left float-left">
-                    <span><i class="lotus-icon-cloud"></i> 18 °C</span>
-                    <span><i class="lotus-icon-location"></i> 225 Beach Street, Australian</span>
-                    <span><i class="lotus-icon-phone"></i> 1-548-854-8898</span>
+                    {% if user.id is not None %}
+                        Welcome : <strong class="text-uppercase">{{ user.first_name }}</strong>
+                        <br>
+                        <a href="/logout">Logout</a> / <a href="/user_index"> My Account</a>
+                    {% else %}
+                        <span class="login-register">
+                            <strong><a href="/login">Login</a></strong> / <strong><a href="/signup">Sign Up</a></strong>
+                        </span>
+                    {% endif %}
                 </div>
                 <script>
 
@@ -35,7 +41,7 @@
                     }
 
                 </script>
-                <div class="header_left float-left">
+                <div class="header_right float-right">
                     <div class="mailchimp-form">
                         <form action="/search/" method="POST">
                             {% csrf_token %}
@@ -50,31 +56,6 @@
                             <button class="search-btn"><i class="fa fa-search"></i></button>
                         </form>
                     </div>
-                </div>
-                <div class="header_right float-right">
-
-                        <span class="login-register">
-                            <a href="login.html">Login</a>
-                            <a href="register.html">register</a>
-                        </span>
-
-                    <div class="dropdown currency">
-                        <span>USD <i class="fa fa"></i></span>
-                        <ul>
-                            <li class="active"><a href="#">USD</a></li>
-                            <li><a href="#">EUR</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="dropdown language">
-                        <span>ENG</span>
-
-                        <ul>
-                            <li class="active"><a href="#">ENG</a></li>
-                            <li><a href="#">FR</a></li>
-                        </ul>
-                    </div>
-
                 </div>
             </div>
         </div>
