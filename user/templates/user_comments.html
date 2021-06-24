@@ -1,0 +1,46 @@
+{% extends 'homebase.html' %}
+
+{% block title %}  {{ user.first_name }} User Comments {% endblock %}
+{% block description %} {{ setting.description }} {% endblock %}
+{% block keywords %} {{ setting.keywords }} {% endblock %}
+
+{% load static %}
+{% block body %}
+    <section class="section-account parallax bg-11">
+        <div class="awe-overlay"></div>
+        <div class="container">
+            <div class="login-register">
+                <div class="text text-center">
+                    <h2>User Comments</h2>
+                    <table class="shopping-cart-table table">
+                        <tr>
+                            <th class="text-left">Subject </th>
+                            <th class="text-left">Comment </th>
+                            <th class="text-left">Status </th>
+                            <th class="text-left">Date </th>
+                            <th class="text-left">Detail </th>
+                        </tr>
+                        {% for rs in comments %}
+                            <tr>
+                                <td class="text-left">
+                                    <a href="/hotel/{{ rs.hotel_id }}/{{ rs.hotel.slug }}">
+                                        <strong> {{ rs.hotel.title}}</strong>
+                                    </a>
+                                </td>
+
+                                <td class="text-left">{{ rs.subject}} </td>
+                                <td class="text-left">{{ rs.comment}} </td>
+                                <td class="text-left">{{ rs.status}} </td>
+                                <td class="text-left">{{ rs.create_at}} </td>
+                                <td class="text-left">
+                                    <button class="awe-btn awe-btn-13"><a class="primary-btn" href="/user/deletecomment/{{ rs.id }}" onclick="return confirm('Will be Delete ! Are you sure?')"> Delete </a></button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+    </div>
+    <!-- /section -->
+    </section>
+{% endblock %}
