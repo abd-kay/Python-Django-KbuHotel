@@ -1,7 +1,7 @@
 from django.contrib import admin
 from mptt.admin import DraggableMPTTAdmin
 # Register your models here.
-from hotel.models import Category, Hotel, Images, Comment
+from hotel.models import Category, Hotel, Images, Comment, Room
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -47,12 +47,21 @@ class HotelImageInline(admin.TabularInline):
     model = Images
     extra = 3
 
+class HotelRoomInline(admin.TabularInline):
+    model = Room
+    extra = 2
+
+class RoomAdmin(admin.ModelAdmin):
+    list_display = ['title','hotel','image_tag']
+    readonly_fields = ('image_tag',)
+    list_filter = ['status', 'hotel']
+
 class HotelAdmin(admin.ModelAdmin):
     list_display = ['title', 'category', 'status', 'update_at', 'image_tag']
     list_filter = ['category']
     readonly_fields = ('image_tag',)
     prepopulated_fields = {'slug': ('title',)}
-    inlines = [HotelImageInline]
+    inlines = [HotelImageInline,HotelRoomInline]
 
 class ImagesAdmin(admin.ModelAdmin):
     list_display = ['image','title']
@@ -67,3 +76,4 @@ admin.site.register(Category,CategoryAdmin2)
 admin.site.register(Hotel,HotelAdmin)
 admin.site.register(Images,ImagesAdmin)
 admin.site.register(Comment,CommentAdmin)
+admin.site.register(Room, RoomAdmin)

@@ -1,0 +1,79 @@
+{% extends 'homebase.html' %}
+
+{% block title %}  {{ user.first_name }} -Reservation Informations {% endblock %}
+{% block description %} {{ setting.description }} {% endblock %}
+{% block keywords %} {{ setting.keywords }} {% endblock %}
+
+{% load static %}
+{% block body %}
+    <section class="section-account parallax bg-11">
+        <div class="awe-overlay"></div>
+        <div class="container">
+            <div class="login-register">
+                <div class="text text-center">
+                    <h2>User Reservation Informations</h2>
+                    <table class="table">
+
+                        <tr>
+                            <th class="text-center">Name Surname</th>
+                            <td class="thumb">{{ reservation.first_name }} {{ reservation.last_name }}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-center">Phone</th>
+                            <td class="thumb">{{ reservation.phone }}</td>
+                        </tr>
+
+
+                        <tr>
+                            <th class="text-center">Status</th>
+                            <td class="thumb">{{ reservation.status }}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-center">Date</th>
+                            <td class="thumb">{{ reservation.create_at }}</td>
+                        </tr>
+
+                        <tr>
+                            <th class="text-center">Admin Note</th>
+                            <td class="thumb">{{ reservation.adminnote }}</td>
+                        </tr>
+                    </table>
+                    <br>
+                    <br>
+                    <h4 class="title">Reservation Room Detail</h4>
+                    <br>
+                    <table class="table">
+                        <tr>
+                            <th class="text-left">Image</th>
+                            <th class="text-left">Menu Name</th>
+                            <th class="text-left">Price</th>
+                            <th class="text-left">Quantity</th>
+                            <th class="text-left">Amount</th>
+                            <th class="text-left">Status</th>
+                            <th class="text-left">Start Date</th>
+                            <th class="text-left">End Date</th>
+
+                        </tr>
+                        {% for rs in reservationitems %}
+                            <tr>
+                                <td class="text-left">
+                                    <a href="/menu/{{ rs.room_id }}/{{ rs.room.slug }}"> <img
+                                            src="{{ rs.room.image.url }}"
+                                            style="height:80px;"></a></td>
+                                <td class="text-left">{{ rs.room.title }}</td>
+                                <td class="text-left">{{ rs.price }}</td>
+                                <td class="text-left">{{ rs.quantity }}</td>
+                                <td class="text-left">{{ rs.amount }}</td>
+                                <td class="text-left">{{ rs.status }}</td>
+                                <td class="text-left">{{ rs.date_start }}</td>
+                                <td class="text-left">{{ rs.date_end }}</td>
+
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- /section -->
+    </section>
+{% endblock %}

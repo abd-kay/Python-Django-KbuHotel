@@ -1,0 +1,45 @@
+{% extends 'homebase.html' %}
+
+{% block title %}  {{ user.first_name }} -Reservation Form {% endblock %}
+{% block description %} {{ setting.description }} {% endblock %}
+{% block keywords %} {{ setting.keywords }} {% endblock %}
+
+{% load static %}
+{% block body %}
+    <section class="section-account parallax bg-11">
+        <div class="awe-overlay"></div>
+        <div class="container">
+            <div class="login-register">
+                <div class="text text-center">
+                    <h2>Reservation Form</h2>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="col">
+                        <div class="span4">
+                            <label>First Name </label>
+                            <input type="text" name="first_name" value="{{ user.first_name }}" class="input-block-level"
+                                   placeholder="First Name"/>
+                        </div>
+
+                        <div class="span4">
+                            <label>Last Name </label>
+                            <input type="text" name="last_name" value="{{ user.last_name }}" class="input-block-level"
+                                   placeholder="Last Name"/>
+                        </div>
+
+                        <div class="span4">
+                            <label>Phone Number </label>
+                            <input type="text" name="phone" value="{{ profile.phone }}" class="input-block-level"
+                                   placeholder="phone"/>
+                        </div>
+                            <button class="awe-btn awe-btn-13" type="submit">Complete reservation</button>
+
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        <!-- /section -->
+    </section>
+{% endblock %}
