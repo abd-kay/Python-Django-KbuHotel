@@ -6,7 +6,8 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.http import HttpResponse, HttpResponseRedirect
-from reservation.models import Reservation, ReservationRoom
+
+from home.models import Setting
 from hotel.models import Category, Comment
 from user.forms import SignUpForm, UserUpdateForm, ProfileUpdateForm
 from user.models import UserProfile
@@ -17,7 +18,8 @@ def index(request):
     category = Category.objects.all()
     current_user = request.user  # Access User Session information
     profile = UserProfile.objects.get(user_id=current_user.id)
-    context = {  'category': category,
+    context = {
+        'category': category,
         'profile': profile}
     return render(request, 'user_profile.html', context)
 
@@ -79,29 +81,14 @@ def signup_form(request):
     return render(request, 'signup_form.html', context)
 
 
-@login_required(login_url="/login")
-def reservations(request):
-    category = Category.objects.all()
-    current_user = request.user
-    reservations = Reservation.objects.filter(user_id=current_user.id)
-    context = {
-        'category': category,
-        'reservations': reservations,
-    }
-    return render(request, 'user_reservations.html', context)
+@login_required(login_url='/login')
+def reservation(request):
+    return render(request, 'user_reservations.html')
 
-@login_required(login_url="/login")
+
+@login_required(login_url='/login')
 def reservationdetail(request, id):
-    category = Category.objects.all()
-    current_user = request.user
-    reservation = Reservation.objects.get(user_id=current_user.id,id=id)
-    reservationitems = ReservationRoom.objects.filter(reservation_id=id)
-    context = {
-        'category': category,
-        'reservation': reservation,
-        'reservationitems': reservationitems,
-    }
-    return render(request, 'user_reservation_detail.html', context)
+    return render(request, 'user_reservation_detail.html')
 
 @login_required(login_url='/login') # Check login
 def user_update(request):

@@ -6,8 +6,8 @@ from django.contrib import messages
 
 from home.forms import SearchForm
 from home.models import Setting, ContactForm, ContactMessage, FAQ
-from hotel.models import Category, Hotel, Images, Comment
-from reservation.models import ReservationCart
+from hotel.models import Category, Hotel, Images, Comment, Room
+
 
 def index(request):
     current_user = request.user
@@ -16,7 +16,6 @@ def index(request):
     hotels_slider = Hotel.objects.all().order_by('id')[:4] # last 4 hotels
     hotels_latest = Hotel.objects.all().order_by('-id')[:3]  # last 3 hotels
     hotels_picked = Hotel.objects.all().order_by('?')[:1]  # random selected 1 hotel
-    request.session['cart_items'] = ReservationCart.objects.filter(user_id=current_user.id).count()
     page = "home"
     context = {'setting': setting,
                'page': page,
@@ -104,9 +103,11 @@ def search_auto(request):
 def hotel_detail(request,id,slug):
     category = Category.objects.all()
     hotel = Hotel.objects.get(pk=id)
+    rooms = Room.objects.filter(hotel=id)
     images = Images.objects.filter(hotel_id=id)
     comments = Comment.objects.filter(hotel_id=id, status='True')
     context = {'hotel': hotel,
+               'rooms': rooms,
                'category': category,
                'images': images,
                'comments': comments}
@@ -117,6 +118,8 @@ def faq(request):
     category = Category.objects.all()
     faq = FAQ.objects.filter(status="True").order_by("ordernumber")
     context = {'faq': faq,
-               'category': category,
-                     }
+               'category': category,}
     return render(request,'faq.html', context)
+
+
+#def roomdetail(request,id):

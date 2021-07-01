@@ -17,10 +17,12 @@ from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
 from django.urls import path, include
-from reservation import views as reservationviews
+
 from home import views
 
 from user import views as UserViews
+from reservation import views as ReservationViews
+
 
 urlpatterns = [
     path('', include('home.urls')),
@@ -29,17 +31,20 @@ urlpatterns = [
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('user/', include('user.urls')),
     path('reservation/', include('reservation.urls')),
+    path('admin/', admin.site.urls),
 
     path('login/', UserViews.login_form, name='login'),
     path('logout/', UserViews.logout_func, name='logout'),
     path('signup/', UserViews.signup_form, name='signup'),
-    path('admin/', admin.site.urls),
+
     path('faq/', views.faq, name='faq'),
     path('search/', views.search, name='search'),
     path('search_auto/', views.search_auto, name='search_auto'),
     path('aboutus/', views.aboutus, name='aboutus'),
-    path('contact/', views.contact, name='contact'),
-    path('reservationcart/', reservationviews.reservationcart, name="reservationcart"),
+    #path('roomdetail/<int:id>', views.roomdetail, name='roomdetail'),
+    path('booking/', ReservationViews.booking, name='booking'),
+
+
 
     path('category/<int:id>/<slug:slug>', views.category_hotels, name='category_hotels'),
     path('hotel/<int:id>/<slug:slug>', views.hotel_detail, name='hotel_detail'),

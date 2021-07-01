@@ -17,7 +17,7 @@
                     {% if user.id is not None %}
                         Welcome : <strong class="text-uppercase">{{ user.first_name }}</strong>
                         <br>
-                        <a href="/logout">Logout</a> / <a href="/user"> My Account</a>
+                        <a href="/logout">Logout</a> / <a href="/user"> My Account</a>/ <a href="/booking/"> My Booking</a>
                     {% else %}
                         <span class="login-register">
                             <strong><a href="/login">Login</a></strong> / <strong><a href="/signup">Sign Up</a></strong>
@@ -78,22 +78,7 @@
                         <li><a href="/aboutus">About</a></li>
 
                         <li>
-                            <a href="#">Our Rooms</a>
-                        </li>
-
-                        <li>
-                            <a href="#">Reservation <span class="fa fa-caret-down"></span></a>
-                            <ul class="sub-menu">
-                                <li><a href="reservation-step-1.html">Reservation Step 1</a></li>
-                                <li><a href="reservation-step-2.html">Reservation Step 2</a></li>
-                                <li><a href="reservation-step-3.html">Reservation Step 3</a></li>
-                                <li><a href="reservation-step-4.html">Reservation Step 4</a></li>
-                                <li><a href="reservation-step-5.html">Reservation Step 5</a></li>
-                            </ul>
-                        </li>
-
-                        <li>
-                            <a href="#">Category<span class="fa fa-caret-down"></span></a>
+                            <a>Category<span class="fa fa-caret-down"></span></a>
                             {% load mptt_tags %}
                             <ul class="sub-menu">
                                 {% recursetree category %}
@@ -109,6 +94,7 @@
                                 {% endrecursetree %}
                             </ul>
                         </li>
+
 
                         <li><a href="/contact">Contact</a></li>
                         <li><a href="/faq">FAQ</a></li>

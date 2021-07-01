@@ -1,45 +1,100 @@
 {% extends 'homebase.html' %}
 
-{% block title %}  {{ user.first_name }} -Reservation Form {% endblock %}
+{% block title %}  Reservation {% endblock %}
 {% block description %} {{ setting.description }} {% endblock %}
 {% block keywords %} {{ setting.keywords }} {% endblock %}
 
 {% load static %}
-{% block body %}
-    <section class="section-account parallax bg-11">
+{% block body %}}
+    <!-- SUB BANNER -->
+    <section class="section-sub-banner bg-9">
+
         <div class="awe-overlay"></div>
-        <div class="container">
-            <div class="login-register">
+
+        <div class="sub-banner">
+            <div class="container">
                 <div class="text text-center">
-                    <h2>Reservation Form</h2>
-                    <form method="post">
-                        {% csrf_token %}
-                        <div class="col">
-                        <div class="span4">
-                            <label>First Name </label>
-                            <input type="text" name="first_name" value="{{ user.first_name }}" class="input-block-level"
-                                   placeholder="First Name"/>
-                        </div>
-
-                        <div class="span4">
-                            <label>Last Name </label>
-                            <input type="text" name="last_name" value="{{ user.last_name }}" class="input-block-level"
-                                   placeholder="Last Name"/>
-                        </div>
-
-                        <div class="span4">
-                            <label>Phone Number </label>
-                            <input type="text" name="phone" value="{{ profile.phone }}" class="input-block-level"
-                                   placeholder="phone"/>
-                        </div>
-                            <button class="awe-btn awe-btn-13" type="submit">Complete reservation</button>
-
-                        </div>
-                    </form>
-
+                    <h2>RESERVATION</h2>
                 </div>
             </div>
+
         </div>
-        <!-- /section -->
+
     </section>
+    <!-- END / SUB BANNER -->
+
+    <!-- RESERVATION -->
+    <section class="section-reservation-page bg-white">
+
+        <div class="container">
+            <div class="reservation-page">
+
+                <div class="row">
+
+                    <div class="col-md-4 col-lg-3">
+
+
+                    </div>
+
+                    <div class="col-md-8 col-lg-9">
+                        <div class="reservation_content bg-gray">
+                            <h2 class="reservation-heading">RESERVATION Details </h2>
+
+                            <form action="/resComplete" method="POST">
+                                {% csrf_token %}
+                                <div class="col-sm-6">
+                                    <p><label for="id_first_name">First name:</label>
+                                        <input type="text" name="first_name" value="{{ user.first_name }}" class="input"
+                                               maxlength="10" required id="id_first_name"></p>
+                                    <p><label for="id_last_name">Last name:</label>
+                                        <input type="text" name="last_name" value="{{ user.last_name }}" class="input"
+                                               maxlength="10" required id="id_last_name"></p>
+                                    <p><label for="id_address">Address:</label>
+                                        <input type="text" name="address" value="{{ profile.address }}" class="input"
+                                               maxlength="150" id="id_address"></p>
+                                    <p><label for="id_phone">Phone:</label>
+                                        <input type="text" name="phone" value="{{ profile.phone }}" class="input"
+                                               maxlength="20" id="id_phone"></p>
+                                    <p><label for="id_city">City:</label>
+                                        <input type="text" name="city" class="input" id="id_city"
+                                               value="{{ profile.city }}"></p>
+                                    <p><label for="id_first_name">Country :</label>
+                                        <input type="text" name="country" class="input" id="id_country"
+                                               value="{{ profile.country }}"></p>
+                                    <div class="pull-right">
+                                        <button type="submit" class="awe-btn awe-btn-13">COMPLATE RESERVATION</button>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="section-title">
+                                        <h4 class="title">Payment Information</h4>
+                                    </div>
+                                    <p><label for="id_first_name">Credit Card Holder</label>
+                                        <input type="text" name="holder" class="input" value=""></p>
+                                    <p><label for="id_first_name">Credit Card Number</label>
+                                        <input type="text" name="number" class="input" value=""></p>
+                                    <p><label for="id_first_name">Credit Exp Date/Year</label>
+                                        <input type="text" name="ecpdate" class="input" placeholder="mm/yy"></p>
+                                    <p><label for="id_first_name">Security Number</label>
+                                        <input type="text" name="secnumber" class="input" value=""></p>
+                                    <p><label for="id_first_name">Total: {{ total }} USD </label>
+                                        <input type="text" name="total" class="input" readonly value="">
+                                    </p>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        </div>
+
+    </section>
+    <!-- END / RESERVATION -->
+
+
 {% endblock %}

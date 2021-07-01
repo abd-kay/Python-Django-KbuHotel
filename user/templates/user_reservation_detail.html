@@ -12,65 +12,67 @@
             <div class="login-register">
                 <div class="text text-center">
                     <h2>User Reservation Informations</h2>
-                    <table class="table">
-
-                        <tr>
-                            <th class="text-center">Name Surname</th>
-                            <td class="thumb">{{ reservation.first_name }} {{ reservation.last_name }}</td>
-                        </tr>
-                        <tr>
-                            <th class="text-center">Phone</th>
-                            <td class="thumb">{{ reservation.phone }}</td>
-                        </tr>
-
-
-                        <tr>
-                            <th class="text-center">Status</th>
-                            <td class="thumb">{{ reservation.status }}</td>
-                        </tr>
-                        <tr>
-                            <th class="text-center">Date</th>
-                            <td class="thumb">{{ reservation.create_at }}</td>
-                        </tr>
-
-                        <tr>
-                            <th class="text-center">Admin Note</th>
-                            <td class="thumb">{{ reservation.adminnote }}</td>
-                        </tr>
-                    </table>
-                    <br>
-                    <br>
-                    <h4 class="title">Reservation Room Detail</h4>
-                    <br>
-                    <table class="table">
-                        <tr>
-                            <th class="text-left">Image</th>
-                            <th class="text-left">Menu Name</th>
-                            <th class="text-left">Price</th>
-                            <th class="text-left">Quantity</th>
-                            <th class="text-left">Amount</th>
-                            <th class="text-left">Status</th>
-                            <th class="text-left">Start Date</th>
-                            <th class="text-left">End Date</th>
-
-                        </tr>
-                        {% for rs in reservationitems %}
-                            <tr>
-                                <td class="text-left">
-                                    <a href="/menu/{{ rs.room_id }}/{{ rs.room.slug }}"> <img
-                                            src="{{ rs.room.image.url }}"
-                                            style="height:80px;"></a></td>
-                                <td class="text-left">{{ rs.room.title }}</td>
-                                <td class="text-left">{{ rs.price }}</td>
-                                <td class="text-left">{{ rs.quantity }}</td>
-                                <td class="text-left">{{ rs.amount }}</td>
-                                <td class="text-left">{{ rs.status }}</td>
-                                <td class="text-left">{{ rs.date_start }}</td>
-                                <td class="text-left">{{ rs.date_end }}</td>
-
-                            </tr>
-                        {% endfor %}
-                    </table>
+                    <table class="table" cellpadding="3" width="100%">
+                                        {% for rs in reservationdetail %}
+                                            <tr>
+                                                <td>
+                                                    <a href="/hotel/{{ rs.room.hotel.id }}/{{ rs.room.hotel.slug }}/">
+                                                        <img src="{{ rs.room.hotel.thumbnail.url }}"
+                                                             style="width: 100%">
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th width="30%">Id</th>
+                                                <td>{{ rs.id }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Hotel</th>
+                                                <td>
+                                                    <a style="color: #000eff"
+                                                       href="/hotel/{{ rs.room.hotel.id }}/{{ rs.room.hotel.slug }}/">
+                                                        {{ rs.room.hotel.title }}
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Room</th>
+                                                <td>
+                                                    <a style="color: #000eff"
+                                                       href="/hotel/{{ rs.room.hotel.id }}/{{ rs.room.hotel.slug }}/">
+                                                        {{ rs.room.title }}
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Price</th>
+                                                <td>{{ rs.price }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Persons</th>
+                                                <td>{{ rs.person }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>CheckIn</th>
+                                                <td>{{ rs.checkin }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>CheckOut</th>
+                                                <td>{{ rs.checkout }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>status</th>
+                                                <td>{{ rs.status }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Date</th>
+                                                <td>{{ rs.create_at.date }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th><a class="btn btn-warning" href="/user/reservations/">BACK</a></th>
+                                            </tr>
+                                        {% endfor %}
+                                    </table>
                 </div>
             </div>
         </div>

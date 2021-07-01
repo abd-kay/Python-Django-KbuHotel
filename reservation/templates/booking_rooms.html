@@ -1,0 +1,91 @@
+{% extends 'homebase.html' %}
+
+{% block title %}  Booking Rooms {% endblock %}
+{% block description %} {{ setting.description }} {% endblock %}
+{% block keywords %} {{ setting.keywords }} {% endblock %}
+
+{% load static %}
+{% block body %}}
+    <!-- SUB BANNER -->
+    <section class="section-sub-banner bg-9">
+
+        <div class="awe-overlay"></div>
+
+        <div class="sub-banner">
+            <div class="container">
+                <div class="text text-center">
+                    <h2>Booking Rooms</h2>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+    <!-- END / SUB BANNER -->
+
+    <!-- RESERVATION -->
+    <section class="section-reservation-page bg-white">
+
+        <div class="container">
+            <div class="reservation-page">
+
+                <div class="row">
+
+
+                    <div class="col-md-10 col-lg-9">
+                        <div class="reservation_content bg-gray">
+
+                            <table class="shopping-cart-table table">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>Room</th>
+                                <th class="text-center">Price</th>
+                                <th class="text-center">Quantity</th>
+                                <th class="text-center">Total</th>
+                                <th class="text-right"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            {% for rs in booking %}
+                                <tr>
+                                    <td class="thumb">
+                                            <img src="{{ rs.room.image.url }}" alt="">
+                                    </td>
+                                    <td class="details">{{rs.room}}</td>
+                                    <td class="price text-center"><strong>${{ rs.price }}</strong></td>
+                                    <td class="qty text-center"><strong>{{rs.quantity}}</strong></td>
+                                    <td class="total text-center"><strong class="primary-color">${{ rs.price }}</strong></td>
+                                    <td class="text-right"><a href="/reservation/deletefrombooking/{{ rs.id }}" onclick="return confirm('Delete ! Are you sure?')" class="main-btn icon-btn"><i class="fa fa-close"></i></a></td>
+                                </tr>
+
+                            {% endfor %}
+
+                            </tbody>
+                            <tfoot>
+                                <th class="empty" colspan="3"></th>
+                                <th>TOTAL</th>
+                                <th colspan="2" class="total">${{ total }}</th>
+                            </tr>
+                            </tfoot>
+                        </table>
+                        <div class="pull-right">
+                            <button type="submit" class="awe-btn awe-btn-13">continue to complete</button>
+                        </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        </div>
+
+    </section>
+    <!-- END / RESERVATION -->
+
+
+{% endblock %}
