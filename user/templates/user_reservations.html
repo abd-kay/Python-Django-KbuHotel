@@ -12,8 +12,8 @@
             <div class="login-register">
                 <div class="text text-center">
                     <h2>User Reservation list</h2>
-                <table class="table" cellpadding="3" width="100%">
-                                        <tr>
+                    <table class="table" cellpadding="3" width="100%">
+                        <tr>
                             <th class="text-left">Id</th>
                             <th class="text-left">First Name</th>
                             <th class="text-left">Last Name</th>
@@ -23,20 +23,19 @@
                             <th class="text-left">Detay</th>
 
                         </tr>
-                                        {% for rs in reservations %}
-                                            <tr class="text-left">
-                                                <td>{{ rs.id }}</td>
-                                                <td>{{ rs.first_name }}</td>
-                                                <td>{{ rs.last_name }}</td>
-                                                <td>{{ rs.total }}</td>
-                                                <td>{{ rs.status }}</td>
-                                                <td>{{ rs.create_at.date }}</td>
-                                                <td>
-                                                    <a class="aa-secondary-btn" href="/user/reservationdetail/{{ rs.id }}">Detail</a>
-                                                </td>
-                                            </tr>
-                                        {% endfor %}
-                                    </table>
+                        {% for rs in reservations %}
+                                <tr>
+                                   <td class="text-left">{{ rs.id}} </td>
+                                    <td class="text-left">{{ rs.first_name}} </td>
+                                    <td class="text-left">{{ rs.last_name}} </td>
+                                    <td class="text-left">{{ rs.total}} </td>
+                                    <td class="text-left">{{ rs.status}} </td>
+                                    <td class="text-left">{{ rs.create_at}} </td>
+                                    <td class="text-left"><a class="primary-btn" href="/user/reservationsdetail/{{ rs.id }}"> Detail </a></td>
+
+                                </tr>
+                        {% endfor %}
+                    </table>
                 </div>
             </div>
         </div>

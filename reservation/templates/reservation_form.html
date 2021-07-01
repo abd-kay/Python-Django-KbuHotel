@@ -40,7 +40,7 @@
                         <div class="reservation_content bg-gray">
                             <h2 class="reservation-heading">RESERVATION Details </h2>
 
-                            <form action="/resComplete" method="POST">
+                            <form action="" method="POST">
                                 {% csrf_token %}
                                 <div class="col-sm-6">
                                     <p><label for="id_first_name">First name:</label>
@@ -79,9 +79,7 @@
                                         <input type="text" name="ecpdate" class="input" placeholder="mm/yy"></p>
                                     <p><label for="id_first_name">Security Number</label>
                                         <input type="text" name="secnumber" class="input" value=""></p>
-                                    <p><label for="id_first_name">Total: {{ total }} USD </label>
-                                        <input type="text" name="total" class="input" readonly value="">
-                                    </p>
+                                    <p><label for="id_first_name">Total: {{ total }} USD </label></p>
                                 </div>
                             </form>
                         </div>
