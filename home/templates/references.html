@@ -1,0 +1,39 @@
+{% extends 'homebase.html' %}
+
+{% block title %} References-{{ setting.title }} {% endblock %}
+{% block description %} {{ setting.description }} {% endblock %}
+{% block keywords %} {{ setting.keywords }} {% endblock %}
+{% load static %}
+{% block body %}
+<!-- SUB BANNER -->
+        <section class="section-sub-banner bg-9">
+            <div class="awe-overlay"></div>
+            <div class="sub-banner">
+                <div class="container">
+                    <div class="text text-center">
+                        <h2>References</h2>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+        <!-- END / SUB BANNER -->
+
+        <!-- ABOUT -->
+        <section class="section-about">
+            <div class="container">
+
+                <div class="about">
+
+
+            {{ setting.references|safe }}
+
+                </div>
+
+            </div>
+        </section>
+        <!-- END / ABOUT -->
+
+
+{% endblock %}

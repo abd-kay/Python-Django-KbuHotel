@@ -73,7 +73,9 @@
                                                         <div class="entry-content">
 
                                                             <p><b>{{ hotel.detail | safe }}</b></p>
-                                                            <p><b>${{ hotel.price }}</b></p>
+                                                            <p class="price">
+                                                                <span class="amout">${{ hotel.price }}</span>/days
+                                                            </p>
                                                             <br/>
                                                         </div>
                                                     </div>
@@ -216,14 +218,25 @@
                                                         <div class="desc">
                                                             <p>{{ rs.description }}</p>
                                                             <ul>
-                                                                <li>Max: {{ rs.amount }} Person(s)</li>
                                                                 <li>{{ rs.type }}</li>
                                                             </ul>
                                                         </div>
+
                                                         <div class="desc">
-                                                            <span class="text-uppercase">QTY: </span>
-                                                            <input class="input" name="quantity" type="number" value="1"
-                                                                   min="1" max="{{ room.amout }}">
+                                                            <span class="text-uppercase">Adults: </span>
+                                                            <input class="input" name="adults" type="number">
+                                                        </div>
+                                                        <div class="desc">
+                                                            <span class="text-uppercase">Children: </span>
+                                                            <input class="input" name="children" type="number">
+                                                        </div>
+                                                        <div class="desc">
+                                                            <span class="text-uppercase">Checkin: </span>
+                                                            <input class="input" name="checkin" type="date">
+                                                        </div>
+                                                        <div class="desc">
+                                                            <span class="text-uppercase">Checkout: </span>
+                                                            <input class="input" name="checkout" type="date">
                                                         </div>
 
                                                         <div class="bot">

@@ -41,8 +41,11 @@
                                 <th></th>
                                 <th>Room</th>
                                 <th class="text-center">Price</th>
-                                <th class="text-center">Quantity</th>
-                                <th class="text-center">Total</th>
+                                <th class="text-center">Days</th>
+                                <th class="text-center">Checkin</th>
+                                <th class="text-center">Checkout</th>
+                                <th class="text-center">Adults</th>
+                                <th class="text-center">Children</th>
                                 <th class="text-right"></th>
                             </tr>
                             </thead>
@@ -55,8 +58,11 @@
                                     </td>
                                     <td class="details">{{rs.room}}</td>
                                     <td class="price text-center"><strong>${{ rs.price }}</strong></td>
-                                    <td class="qty text-center"><strong>{{rs.quantity}}</strong></td>
-                                    <td class="total text-center"><strong class="primary-color">${{ rs.price }}</strong></td>
+                                    <td class="qty text-center"><strong>{{rs.days}}</strong></td>
+                                    <td class="date text-center"><strong>{{ rs.checkin }}</strong></td>
+                                    <td class="date text-center"><strong>{{rs.checkout}}</strong></td>
+                                    <td class="text text-center"><strong>{{ rs.adults }}</strong></td>
+                                    <td class="text text-center"><strong>{{rs.children}}</strong></td>
                                     <td class="text-right"><a href="/reservation/deletefrombooking/{{ rs.id }}" onclick="return confirm('Delete ! Are you sure?')" class="main-btn icon-btn"><i class="fa fa-close"></i></a></td>
                                 </tr>
 

@@ -6,7 +6,7 @@ from reservation.models import Booking, ReservationRoom, Reservation
 
 class ReservationRoomline(admin.TabularInline):
     model = ReservationRoom
-    readonly_fields = ('user', 'room','price','quantity','amount')
+    readonly_fields = ('user', 'room','price','days','amount')
     can_delete = False
     extra = 0
 
@@ -19,11 +19,11 @@ class ReservationAdmin(admin.ModelAdmin):
     inlines = [ReservationRoomline]
 
 class ReservationRoomAdmin(admin.ModelAdmin):
-    list_display = ['user', 'room','price','quantity','amount']
+    list_display = ['user', 'room','price','days','amount','checkin','checkout','adults','children']
     list_filter = ['user']
 
 class BookingAdmin(admin.ModelAdmin):
-    list_display = ['room','user','quantity','price','amount' ]
+    list_display = ['room','user','days','price','amount']
     list_filter = ['user']
 
 

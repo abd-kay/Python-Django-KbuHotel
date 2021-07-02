@@ -41,6 +41,9 @@ urlpatterns = [
     path('search/', views.search, name='search'),
     path('search_auto/', views.search_auto, name='search_auto'),
     path('aboutus/', views.aboutus, name='aboutus'),
+    path('references/', views.references, name='references'),
+    path('contact/', views.contact, name='contact'),
+
     #path('roomdetail/<int:id>', views.roomdetail, name='roomdetail'),
     path('booking/', ReservationViews.booking, name='booking'),
 

@@ -33,6 +33,13 @@ def aboutus(request):
                'category': category}
     return render(request, 'aboutus.html', context)
 
+def references(request):
+    setting = Setting.objects.get(pk=1)
+    category = Category.objects.all()
+    context = {'setting': setting,
+               'category': category}
+    return render(request, 'references.html', context)
+
 def contact(request):
     if request.method == 'POST':  # check post
         form = ContactForm(request.POST)

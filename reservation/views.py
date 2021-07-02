@@ -1,3 +1,5 @@
+import datetime
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
@@ -12,13 +14,14 @@ from user.models import UserProfile
 def index(request):
     return HttpResponse("reservation page")
 
+
 def reservationroom(request):
     category = Category.objects.all()
     current_user = request.user
     booking = Booking.objects.filter(user_id=current_user.id)
     total = 0
     for rs in booking:
-        total += rs.room.price * rs.quantity
+        total += rs.room.price * rs.days
 
     if request.method == 'POST':  # if there is a post
         form = ReservationForm(request.POST)
@@ -28,7 +31,7 @@ def reservationroom(request):
             # ..............
 
             data = Reservation()
-            data.first_name = form.cleaned_data['first_name']  # get room quantity from form
+            data.first_name = form.cleaned_data['first_name']  # get room days from form
             data.last_name = form.cleaned_data['last_name']
             data.address = form.cleaned_data['address']
             data.city = form.cleaned_data['city']
@@ -46,13 +49,17 @@ def reservationroom(request):
                 detail.reservation_id = data.id
                 detail.room_id = rs.room_id
                 detail.user_id = current_user.id
-                detail.quantity = rs.quantity
+                detail.days = rs.days
+                detail.children = rs.children
+                detail.adults = rs.adults
+                detail.checkin = rs.checkin
+                detail.checkout = rs.checkout
                 detail.price = rs.room.price
                 detail.amount = rs.amount
                 detail.save()
 
                 room = Room.objects.get(id=rs.room_id)
-                room.amount -= rs.quantity
+                room.amount -= rs.days
                 room.save()
 
             Booking.objects.filter(user_id=current_user.id).delete()  # Clear & Delete
@@ -73,45 +80,29 @@ def reservationroom(request):
                }
     return render(request, 'reservation_form.html', context)
 
+
 @login_required(login_url='/login')
-def addtobooking(request,id):
+def addtobooking(request, id):
     url = request.META.get('HTTP_REFERER')  # get last url
     current_user = request.user  # Access User Session information
-
-    checkroom = Booking.objects.filter(room_id=id)
-    if checkroom:
-        control = 1
-    else:
-        control = 0
-
     if request.method == 'POST':  # if there is a post
         form = BookingForm(request.POST)
         if form.is_valid():
-            if control == 1:
-                data = Booking.objects.get(room_id=id)
-                data.quantity += form.cleaned_data['quantity']
-                data.save()  # save data
-            else:
-                data = Booking()
-                data.user_id = current_user.id
-                data.room_id = id
-                data.quantity = form.cleaned_data['quantity']
-                data.save()
-        messages.success(request, "Room successfully booked ")
-        return HttpResponseRedirect(url)
-
-    else:  # if there is no post
-        if control == 1:  # Update  booking
-            data = Booking.objects.get(room_id=id)
-            data.quantity += 1
-            data.save()  #
-        else:  # Inser to booking
             data = Booking()
-            data.user_id = current_user.id
             data.room_id = id
-            data.quantity = 1
-            data.save()  #
-        messages.success(request, "Room successfully booked")
+            data.user_id = current_user.id
+            data.days = (form.cleaned_data['checkout'] - form.cleaned_data['checkin']).days
+            data.checkout=form.cleaned_data['checkout']
+            data.checkin=form.cleaned_data['checkin']
+            data.adults = form.cleaned_data['adults']
+            data.children = form.cleaned_data['children']
+            data.save()  # save data
+            messages.success(request, "Room successfully booked ")
+            return HttpResponseRedirect("/booking")
+        else:
+            messages.success(request, "check error")
+            return HttpResponseRedirect(url)
+    else:
         return HttpResponseRedirect(url)
 
 
@@ -119,22 +110,19 @@ def booking(request):
     category = Category.objects.all()
     current_user = request.user  # Access User Session information
     booking = Booking.objects.filter(user_id=current_user.id)
-    total=0
+    total = 0
     for rs in booking:
-        total += rs.room.price * rs.quantity
-    #return HttpResponse(str(total))
-    context={'booking': booking,
-             'category':category,
-             'total': total,
-             }
-    return render(request,'booking_rooms.html',context)
+        total += rs.room.price * rs.days
+    # return HttpResponse(str(total))
+    context = {'booking': booking,
+               'category': category,
+               'total': total,
+               }
+    return render(request, 'booking_rooms.html', context)
 
 
-
-@login_required(login_url='/login') # Check login
-def deletefrombooking(request,id):
+@login_required(login_url='/login')  # Check login
+def deletefrombooking(request, id):
     Booking.objects.filter(id=id).delete()
     messages.success(request, "Your Room deleted form Booking.")
-    return HttpResponseRedirect("/booking")
-
-
+    return HttpResponseRedirect("/")

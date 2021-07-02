@@ -28,29 +28,23 @@
                             </tr>
                             <tr>
                                 <th>Hotel</th>
-                                <td>
-                                    <a style="color: #000eff"
-                                       href="/hotel/{{ rs.room.hotel.id }}/{{ rs.room.hotel.slug }}/">
-                                        {{ rs.room.hotel.title }}
-                                    </a>
-                                </td>
+                                <td>{{ rs.room.hotel.title }}</td>
                             </tr>
                             <tr>
                                 <th>Room</th>
-                                <td>
-                                    <a style="color: #000eff"
-                                       href="/hotel/{{ rs.room.hotel.id }}/{{ rs.room.hotel.slug }}/">
-                                        {{ rs.room.title }}
-                                    </a>
-                                </td>
+                                <td>{{ rs.room.title }}</td>
                             </tr>
                             <tr>
                                 <th>Price</th>
                                 <td>{{ rs.price }}</td>
                             </tr>
                             <tr>
-                                <th>Persons</th>
-                                <td>{{ rs.person }}</td>
+                                <th>Children</th>
+                                <td>{{ rs.children }}</td>
+                            </tr>
+                            <tr>
+                                <th>Adults</th>
+                                <td>{{ rs.adults }}</td>
                             </tr>
                             <tr>
                                 <th>CheckIn</th>

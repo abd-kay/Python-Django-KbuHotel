@@ -46,7 +46,11 @@ class ReservationRoom(models.Model):
     reservation = models.ForeignKey(Reservation, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
-    quantity = models.IntegerField()
+    days = models.IntegerField()
+    adults = models.IntegerField()
+    children = models.IntegerField()
+    checkin = models.DateField(blank=True)
+    checkout = models.DateField(blank=True)
     price = models.FloatField()
     amount = models.FloatField()
     status = models.CharField(max_length=10, choices=STATUS, default='New')
@@ -60,7 +64,11 @@ class ReservationRoom(models.Model):
 class Booking(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     room = models.ForeignKey(Room, on_delete=models.SET_NULL, null=True)
-    quantity = models.IntegerField()
+    checkin = models.DateField()
+    checkout = models.DateField()
+    days = models.IntegerField(blank=True)
+    adults = models.IntegerField()
+    children = models.IntegerField()
 
     def __str__(self):
         return self.room.title
@@ -71,12 +79,12 @@ class Booking(models.Model):
 
     @property
     def amount(self):
-        return (self.quantity * self.room.price)
+        return (self.days * self.room.price)
 
 
 class BookingForm(ModelForm):
     class Meta:
         model = Booking
-        fields = ['quantity']
+        fields = ['checkout','checkin','adults','children']
 
 
